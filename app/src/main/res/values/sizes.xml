@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_border_padding">5dp</dimen>
+    <integer name="vertical_orientation_columns_count">3</integer>
+    <integer name="horizontal_orientation_columns_count">4</integer>
+    <integer name="initial_cells_count">10</integer>
+    <dimen name="inter_boxes_padding">10dp</dimen>
+    <integer name="inbox_text_size">50</integer>
+    <dimen name="fab_padding">30dp</dimen>
+    <dimen name="fab_size">50dp</dimen>
+    <integer name="fab_text_size">30</integer>
+
+</resources>
