@@ -6,9 +6,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -65,7 +67,9 @@ fun MainScreen() {
         LazyVerticalGrid(
             columns = GridCells.Fixed(count = columnsCount),
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(bottom = 100.dp)
+            contentPadding = PaddingValues(bottom = 100.dp),
+            verticalArrangement = Arrangement.spacedBy(space = 10.dp),
+            horizontalArrangement = Arrangement.spacedBy(space = 10.dp),
         ) {
 
             items(
@@ -74,8 +78,8 @@ fun MainScreen() {
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .size(size = 200.dp)
-                        .padding(5.dp)
+                        .aspectRatio(1f)
+//                        .padding(5.dp)
                         .background(
                             color = if (it % 2 == 0) {
                                 Color.Red
