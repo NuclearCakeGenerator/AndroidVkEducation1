@@ -1,5 +1,6 @@
 package com.example.vkeducationkotlindz1
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,10 +29,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import com.example.vkeducationkotlindz1.ui.theme.VkEducationKotlinDz1Theme
 import kotlinx.serialization.builtins.serializer
@@ -50,7 +55,12 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     var count by remember { mutableIntStateOf(5) }
-    val columnsCount = 3
+    val screenPosition = LocalConfiguration.current.orientation
+    val columnsCount = if (screenPosition == Configuration.ORIENTATION_LANDSCAPE) {
+        4
+    } else {
+        3
+    }
     Box(modifier = Modifier.fillMaxSize()) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(count = columnsCount),
@@ -85,7 +95,9 @@ fun MainScreen() {
         }
         FloatingActionButton(
             onClick = { count++ },
-            modifier = Modifier.align (alignment = Alignment.BottomEnd).padding(30.dp)
+            modifier = Modifier
+                .align(alignment = Alignment.BottomEnd)
+                .padding(30.dp)
         ) {
             Text(
                 text = "+",
