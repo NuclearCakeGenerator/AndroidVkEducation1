@@ -86,17 +86,16 @@ fun MainScreen() {
                         .aspectRatio(1f)
                         .clip(shape = RoundedCornerShape(percent = integerResource(R.integer.box_round_percentage)))
                         .background(
-                            color = if (it % 2 == 0)
+                            color = if ((it + 1) % 2 == 1)
                                 colorResource(R.color.odd_color)
                             else
                                 colorResource(R.color.even_color)
 
-                        )
-                        ,
+                        ),
 
                     ) {
                     Text(
-                        text = "$it",
+                        text = "${it + 1}",
                         fontSize = integerResource(R.integer.inbox_text_size).sp,
                         color = colorResource(R.color.inbox_text_color),
                     )
