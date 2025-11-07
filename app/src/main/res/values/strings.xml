@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">VkEducationKotlinDz1</string>
+    <string name="close_button_text">Close</string>
 </resources>

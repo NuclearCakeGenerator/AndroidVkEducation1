@@ -10,5 +10,7 @@
     <dimen name="fab_size">50dp</dimen>
     <integer name="fab_text_size">30</integer>
     <integer name="box_round_percentage">10</integer>
+    <dimen name="close_button_padding">100dp</dimen>
+    <integer name="extra_screen_text_size">40</integer>
 
 </resources>
