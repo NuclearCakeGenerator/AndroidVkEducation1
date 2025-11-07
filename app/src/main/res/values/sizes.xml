@@ -9,5 +9,6 @@
     <dimen name="fab_padding">30dp</dimen>
     <dimen name="fab_size">50dp</dimen>
     <integer name="fab_text_size">30</integer>
+    <integer name="box_round_percentage">10</integer>
 
 </resources>
