@@ -28,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,7 +57,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen() {
-    var count by remember { mutableIntStateOf(5) }
+    var count by rememberSaveable { mutableIntStateOf(5) }
     val screenPosition = LocalConfiguration.current.orientation
     val columnsCount = if (screenPosition == Configuration.ORIENTATION_LANDSCAPE) {
         4
@@ -67,7 +68,7 @@ fun MainScreen() {
         LazyVerticalGrid(
             columns = GridCells.Fixed(count = columnsCount),
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(bottom = 100.dp),
+            contentPadding = PaddingValues(top = 5.dp, start = 5.dp, end = 5.dp, bottom = 100.dp),
             verticalArrangement = Arrangement.spacedBy(space = 10.dp),
             horizontalArrangement = Arrangement.spacedBy(space = 10.dp),
         ) {
