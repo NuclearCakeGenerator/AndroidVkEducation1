@@ -114,11 +114,6 @@ fun MainScreen() {
     }
 }
 
-data class MyCell(
-    val text: String,
-    val id: Int
-)
-
 @Preview(showBackground = true)
 @Composable
 fun MainScreenPreview() {
