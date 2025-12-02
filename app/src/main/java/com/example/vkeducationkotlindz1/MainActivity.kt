@@ -64,7 +64,7 @@ class GiphyViewModel : ViewModel() {
     var error by mutableStateOf(false)
     private var offset = 0
 
-    private val apiKey = "tTf1DVyeWzeb4YbVSY4tqL29kpYHhjbM"
+    private val apiKey = "tLw0jsZTNUT8dufXfGf8VzT5KkBWug7J"
 
     fun loadInitial() {
         if (items.isNotEmpty()) return // survive rotation
@@ -153,7 +153,7 @@ fun GifGrid(
     onClick: (Int) -> Unit,
     onLoadMore: () -> Unit,
     isLoadingMore: Boolean,
-    columns: Int = 3 // default 2 columns
+    columns: Int = 3
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(columns),
@@ -169,17 +169,15 @@ fun GifGrid(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(1f) // makes cells square
+                    .aspectRatio(1f)
                     .clickable { onClick(index) }
             )
 
-            // trigger pagination 5 items before the end
-            if (index == items.lastIndex - 5) {
+            if (index == items.lastIndex ) {
                 onLoadMore()
             }
         }
 
-        // bottom loading indicator spanning all columns
         if (isLoadingMore) {
             item(span = { GridItemSpan(maxLineSpan) }) {
                 Box(
