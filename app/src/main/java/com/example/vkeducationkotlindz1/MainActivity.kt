@@ -25,6 +25,15 @@ import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.converter.gson.GsonConverterFactory
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.*
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+//import com.example.giphyapp.GifObject
 
 
 data class GiphyResponse(val data: List<GifObject>)
@@ -129,7 +138,7 @@ fun AppScreen(vm: GiphyViewModel = viewModel()) {
         }
 
         else -> {
-            GifList(
+            GifGrid(
                 items = vm.items, onClick = { index ->
                     Toast.makeText(context, "GIF #${index + 1}", Toast.LENGTH_SHORT).show()
                 }, onLoadMore = { vm.loadMore() }, isLoadingMore = vm.isLoadingMore
@@ -139,15 +148,20 @@ fun AppScreen(vm: GiphyViewModel = viewModel()) {
 }
 
 @Composable
-fun GifList(
-    items: List<GifObject>, onClick: (Int) -> Unit, onLoadMore: () -> Unit, isLoadingMore: Boolean
+fun GifGrid(
+    items: List<GifObject>,
+    onClick: (Int) -> Unit,
+    onLoadMore: () -> Unit,
+    isLoadingMore: Boolean,
+    columns: Int = 3 // default 2 columns
 ) {
-    LazyColumn(
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(columns),
         modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(6.dp),
         verticalArrangement = Arrangement.spacedBy(6.dp),
-        contentPadding = PaddingValues(6.dp)
+        horizontalArrangement = Arrangement.spacedBy(6.dp)
     ) {
-
         itemsIndexed(items) { index, item ->
 
             AsyncImage(
@@ -155,7 +169,9 @@ fun GifList(
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onClick(index) })
+                    .aspectRatio(1f) // makes cells square
+                    .clickable { onClick(index) }
+            )
 
             // trigger pagination 5 items before the end
             if (index == items.lastIndex - 5) {
@@ -163,13 +179,14 @@ fun GifList(
             }
         }
 
-        // bottom loading indicator
+        // bottom loading indicator spanning all columns
         if (isLoadingMore) {
-            item {
+            item(span = { GridItemSpan(maxLineSpan) }) {
                 Box(
                     Modifier
                         .fillMaxWidth()
-                        .padding(16.dp), contentAlignment = Alignment.Center
+                        .padding(16.dp),
+                    contentAlignment = Alignment.Center
                 ) { CircularProgressIndicator() }
             }
         }
