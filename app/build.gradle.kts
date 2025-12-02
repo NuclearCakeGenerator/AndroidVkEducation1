@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.File
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -18,6 +21,17 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val localProperties = Properties().apply {
+            load(File(rootDir, "local.properties").inputStream())
+        }
+
+        val giphyApiKey = localProperties.getProperty("GIPHY_API_KEY")?.trim()
+            ?: throw GradleException("GIPHY_API_KEY is missing in local.properties!")
+
+        println(">>> Gradle sees GIPHY_API_KEY: '$giphyApiKey'") // debug
+
+        buildConfigField("String", "GIPHY_API_KEY", "\"$giphyApiKey\"")
     }
 
     buildTypes {
@@ -38,6 +52,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
